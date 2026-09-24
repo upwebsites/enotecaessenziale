@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    color: #1f1f1f;
+    background-color: #f7f5f2;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: #8a6b4f;
+    color: #f7f5f2;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    color: #1f1f1f;
+    letter-spacing: 0.01em;
+    line-height: 1.15;
+    overflow: visible;
+  }
+
+  h1 em, h1 i, h2 em, h2 i, h3 em, h3 i, h4 em, h4 i, h5 em, h5 i, h6 em, h6 i {
+    overflow: visible;
+    padding-right: 0.05em;
+  }
+
+  h1 { font-size: clamp(2.2rem, 7vw, 5rem); }
+  h2 { font-size: clamp(1.8rem, 4.5vw, 3.2rem); }
+  h3 { font-size: clamp(1.4rem, 3vw, 2.2rem); }
+  h4 { font-size: clamp(1.1rem, 2vw, 1.6rem); }
+}
+
+@layer components {
+  .container {
+    @apply px-6 md:px-12 mx-auto max-w-[1100px];
+  }
+
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  .btn {
+    @apply px-6 py-3 rounded-md font-medium transition-all duration-300 inline-flex items-center justify-center text-center uppercase tracking-wider text-xs;
+  }
+
+  .btn-ghost {
+    background-color: transparent;
+    color: #5a4a3a;
+    border: 1px solid #8a6b4f;
+  }
+
+  .btn-ghost:hover {
+    background-color: #8a6b4f;
+    color: #f7f5f2;
+  }
+
+  .btn-solid {
+    background-color: #5a4a3a;
+    color: #f7f5f2;
+  }
+
+  .btn-solid:hover {
+    background-color: #8a6b4f;
+  }
+}
+
+/* Custom animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeUp {
+  animation: fadeUp 0.7s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+}
+
+/* Background blur e contrasto ridotto */
+.bg-blur-reduced-contrast {
+  filter: blur(6px) contrast(0.85);
+}
+
+/* Effetto carta — grana sottile e fibre */
+.paper-texture {
+  position: relative;
+  isolation: isolate;
+  background-color: #f9f4ea;
+  background-image:
+    radial-gradient(ellipse at 15% 0%, rgba(255, 255, 255, 0.35), transparent 50%),
+    radial-gradient(ellipse at 90% 100%, rgba(176, 141, 87, 0.08), transparent 45%);
+}
+
+.paper-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='paperNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.16'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperNoise)'/%3E%3C/svg%3E");
+}
+
+/* Variante leggera per superfici carta (card CTA) */
+.paper-card {
+  position: relative;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 1px 2px rgba(90, 74, 58, 0.06),
+    0 12px 32px rgba(90, 74, 58, 0.08);
+}
+
+.paper-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='paperNoise2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.12'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperNoise2)'/%3E%3C/svg%3E");
+}
+
+/* Scrollbar essenziale */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background-color: #f7f5f2;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #c9b9a8;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #b29c83;
+}

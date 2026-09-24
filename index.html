@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+    <!-- Se vuoi una favicon custom: <link rel="icon" href="/favicon.ico" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>enotecaessenziale</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/dearflip/css/dflip.min.css" />
+  </head>
+  <body>
+    <script src="/dearflip/js/libs/jquery.min.js"></script>
+    <script>
+      window.jQuery = window.$ = window.jQuery || window.$;
+    </script>
+    <script src="/dearflip/js/libs/pdf.min.js"></script>
+    <script src="/dearflip/js/libs/three.min.js"></script>
+    <script src="/dearflip/js/dflip.js"></script>
+    <script>
+      (function () {
+        if (typeof window === 'undefined') return;
+        window.jQuery = window.$ = window.jQuery || window.$;
+        if (!window.DFLIP) {
+          console.warn('[dearflip] DFLIP non trovato; verifica che /dearflip/js/dflip.js sia servito.');
+        }
+      })();
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

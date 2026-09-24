@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test DearFlip</title>
+    <link rel="stylesheet" href="/dearflip/css/dflip.min.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .dflip-book {
+            width: 100%;
+            height: 600px;
+            margin: 20px 0;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test DearFlip</h1>
+        <div class="info">
+            <strong>PDF:</strong> /PDF/AM_20_2025.pdf<br>
+            <strong>Licenza:</strong> sk_vzsTC&B*#5mKQ6Gc*lV+CEKXe:VJ1
+        </div>
+        
+        <div class="dflip-book" 
+             data-pdf="/PDF/AM_20_2025.pdf"
+             data-df-config='{"licenseKey":"sk_vzsTC&B*#5mKQ6Gc*lV+CEKXe:VJ1","webgl":false,"autoEnableOutline":false,"autoEnableThumbnail":false,"enableDownload":false,"enablePrint":false,"backgroundColor":"#ffffff","showToolbar":true,"showThumbnail":false,"showOutline":false,"pageMode":"double","singlePageMode":"zomm","pageSize":"fit"}'>
+        </div>
+        
+        <div class="info">
+            <strong>Debug:</strong> Controlla console per errori
+        </div>
+    </div>
+
+    <script src="/dearflip/js/libs/jquery.min.js"></script>
+    <script>
+        window.jQuery = window.$ = window.jQuery || window.$;
+    </script>
+    <script src="/dearflip/js/libs/pdf.min.js"></script>
+    <script src="/dearflip/js/libs/three.min.js"></script>
+    <script src="/dearflip/js/dflip.js"></script>
+    
+    <script>
+        console.log("DearFlip caricato:", window.DFLIP);
+        console.log("jQuery caricato:", window.$);
+        
+        // Inizializza DearFlip
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM caricato, inizializzo DearFlip...");
+            
+            if (window.DFLIP) {
+                console.log("DFLIP disponibile, metodi:", Object.keys(window.DFLIP));
+                
+                // Prova direttamente openBase64
+                console.log("Provo openBase64 direttamente...");
+                fetch("http://localhost:5173/PDF/AM_20_2025.pdf")
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const reader = new FileReader();
+                        reader.onload = function() {
+                            const base64 = reader.result.split(',')[1];
+                            const flipbookElement = document.querySelector('.dflip-book');
+                            const config = {
+                                licenseKey: "sk_vzsTC&B*#5mKQ6Gc*lV+CEKXe:VJ1",
+                                webgl: false,
+                                autoEnableOutline: false,
+                                autoEnableThumbnail: false,
+                                enableDownload: false,
+                                enablePrint: false,
+                                backgroundColor: "#ffffff",
+                                showToolbar: true,
+                                showThumbnail: false,
+                                showOutline: false
+                            };
+                            console.log("Config:", config);
+                            window.DFLIP.openBase64(base64, config, flipbookElement);
+                            console.log("openBase64 eseguito");
+                            
+                            // Controlla se funziona
+                            setTimeout(() => {
+                                console.log("Figli elemento dopo openBase64:", flipbookElement.children.length);
+                                console.log("Contenuto elemento dopo openBase64:", flipbookElement.innerHTML);
+                            }, 3000);
+                        };
+                        reader.readAsDataURL(blob);
+                    })
+                    .catch(err => console.error("Errore nel caricamento PDF:", err));
+            } else {
+                console.error("DearFlip non disponibile");
+            }
+        });
+    </script>
+</body>
+</html>
